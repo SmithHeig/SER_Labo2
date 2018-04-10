@@ -1,0 +1,33 @@
+<!ELEMENT projections (projection)*>
+<!ELEMENT projection (id, date, salle, film)>
+<!ELEMENT film (id, titre, synopsis, durée, (critique*), (genre*), (mot-cle*), (langages*), photo, (participent*))>
+<!ELEMENT participent (id,personnage, acteur, (role*), place)>
+<!ELEMENT acteur (nom, nomNaissance, biographie, dateNaissance, dateDeces?)>
+<!ELEMENT photo EMPTY>
+<!ELEMENT date (jour,mois,annee)>
+<!ELEMENT salle (id, noSalle, taille)>
+
+<!ELEMENT id (#PCDATA)>
+<!ELEMENT titre (#PCDATA)>
+<!ELEMENT synopsis (#PCDATA)>
+<!ELEMENT durée (#PCDATA)>
+<!ELEMENT critique (#PCDATA)>
+<!ELEMENT genre (#PCDATA)>
+<!ELEMENT mot-cle (#PCDATA)>
+<!ELEMENT langages (#PCDATA)>
+<!ELEMENT personnage (#PCDATA)>
+<!ELEMENT role (#PCDATA)>
+<!ELEMENT place (#PCDATA)>
+<!ELEMENT nom (#PCDATA)>
+<!ELEMENT nomNaissance (#PCDATA)>
+<!ELEMENT jour (#PCDATA)>
+<!ELEMENT mois (#PCDATA)>
+<!ELEMENT annee (#PCDATA)>
+<!ELEMENT noSalle (#PCDATA)>
+<!ELEMENT taille (#PCDATA)>
+<!ELEMENT biographie (#PCDATA)>
+<!ELEMENT dateNaissance (date)>
+<!ELEMENT dateDeces (date)>
+
+<!ATTLIST photo url CDATA #REQUIRED> 
+<!ATTLIST acteur sexe (Masculin|Feminin) #REQUIRED>

@@ -55,6 +55,13 @@
             <version>1.3.4</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.jdom/jdom2 -->
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+            <version>2.0.6</version>
+        </dependency>
+
         <dependency>
             <groupId>ch.heigvd.iict.ser.plex</groupId>
             <artifactId>WFC-Interfaces</artifactId>
