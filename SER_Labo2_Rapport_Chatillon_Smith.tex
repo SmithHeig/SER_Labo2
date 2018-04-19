@@ -1,0 +1,849 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage[a4paper]{geometry}
+\geometry{hscale=0.8,vscale=0.8,centering}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+\newcommand{\ImportTok}[1]{{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+\newcommand{\BuiltInTok}[1]{{#1}}
+\newcommand{\ExtensionTok}[1]{{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+\newcommand{\RegionMarkerTok}[1]{{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\NormalTok}[1]{{#1}}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\author{James Smith et Jérémie Chatillon}
+
+\date{19.04.18}
+
+\title{SER - Rapport Labo 2}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\section{Introduction}\label{header-n5}
+
+Dans ce laboratoire, nous avons du implémenter des fonctions java pour
+transformer des données d'une base de données contenant des projections
+en \emph{XML} et \emph{JSON}.
+
+\section{Changement XML - DTD}\label{header-n18}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{<!ELEMENT} \FunctionTok{projections} \DecValTok{(}\FunctionTok{projection}\DecValTok{)}\FloatTok{*}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{projection} \DecValTok{(}\FunctionTok{id}\DecValTok{,} \FunctionTok{date}\DecValTok{,} \FunctionTok{salle}\DecValTok{,} \FunctionTok{film}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{film} \DecValTok{(}\FunctionTok{id}\DecValTok{,} \FunctionTok{titre}\DecValTok{,} \FunctionTok{synopsis}\DecValTok{,} \FunctionTok{dur}\NormalTok{é}\FunctionTok{e}\DecValTok{,} \DecValTok{(}\FunctionTok{critiques}\FloatTok{*}\DecValTok{),} \DecValTok{(}\FunctionTok{genres}\FloatTok{*}\DecValTok{),} \DecValTok{(}\FunctionTok{mots-cles}\FloatTok{*}\DecValTok{),} \DecValTok{(}\FunctionTok{langues}\FloatTok{*}\DecValTok{),} \FunctionTok{photo}\FloatTok{?}\DecValTok{,} \DecValTok{(}\FunctionTok{roles}\FloatTok{*}\DecValTok{))}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{acteur} \DecValTok{(}\FunctionTok{nom}\DecValTok{,} \FunctionTok{nomNaissance}\FloatTok{?}\DecValTok{,} \FunctionTok{biographie}\DecValTok{,} \FunctionTok{dateNaissance}\FloatTok{?}\DecValTok{,} \FunctionTok{dateDeces}\FloatTok{?}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{photo} \KeywordTok{EMPTY}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{date} \DecValTok{(}\FunctionTok{jour}\DecValTok{,}\FunctionTok{mois}\DecValTok{,}\FunctionTok{annee}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{salle} \DecValTok{(}\FunctionTok{id}\DecValTok{,} \FunctionTok{noSalle}\DecValTok{,} \FunctionTok{taille}\DecValTok{)}\DataTypeTok{>}
+
+\DataTypeTok{<!ELEMENT} \FunctionTok{critiques} \DecValTok{(}\FunctionTok{critique}\FloatTok{*}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{genres} \DecValTok{(}\FunctionTok{genre}\FloatTok{*}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{mots-cles} \DecValTok{(}\FunctionTok{mot-cle}\FloatTok{*}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{langues} \DecValTok{(}\FunctionTok{langue}\FloatTok{*}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{roles} \DecValTok{(}\FunctionTok{role}\FloatTok{*}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{role} \DecValTok{(}\FunctionTok{id}\DecValTok{,}\FunctionTok{personnage}\DecValTok{,} \FunctionTok{place}\DecValTok{,} \FunctionTok{acteur}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{id} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{titre} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{synopsis} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{dur}\NormalTok{é}\FunctionTok{e} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{critique} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{genre} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{mot-cle} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{langue} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{personnage} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{place} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{nom} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{nomNaissance} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{jour} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{mois} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{annee} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{noSalle} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{taille} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{biographie} \DecValTok{(}\KeywordTok{#PCDATA}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{dateNaissance} \DecValTok{(}\FunctionTok{date}\DecValTok{)}\DataTypeTok{>}
+\DataTypeTok{<!ELEMENT} \FunctionTok{dateDeces} \DecValTok{(}\FunctionTok{date}\DecValTok{)}\DataTypeTok{>}
+
+\DataTypeTok{<!ATTLIST} \FunctionTok{photo} \FunctionTok{url} \KeywordTok{CDATA} \KeywordTok{#REQUIRED}\DataTypeTok{>} 
+\DataTypeTok{<!ATTLIST} \FunctionTok{acteur} \FunctionTok{sexe} \DecValTok{(}\FunctionTok{Masculin}\DecValTok{|}\FunctionTok{Feminin}\DecValTok{)} \KeywordTok{#REQUIRED}\DataTypeTok{>}
+\end{Highlighting}
+\end{Shaded}
+
+Nous nous sommes rendu compte que certaines données n'était pas
+obligatoire et que certain nom que nous avions mis ne correspondait pas
+avec la BD.
+
+\section{Changement dans la structure JSON}\label{header-n34}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+  \DataTypeTok{"projections"}\FunctionTok{:} \OtherTok{[}
+    \FunctionTok{\{}
+      \DataTypeTok{"date"}\FunctionTok{:} \StringTok{"17-04-2018"}\FunctionTok{,}
+      \DataTypeTok{"titre"}\FunctionTok{:} \StringTok{"Casino Royale"}\FunctionTok{,}
+      \DataTypeTok{"premierRole"}\FunctionTok{:} \StringTok{"Dench, Judi"}\FunctionTok{,}
+      \DataTypeTok{"deuxiemeRole"}\FunctionTok{:} \StringTok{"Jankovsky, Jaroslav"}
+    \FunctionTok{\}}
+  \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Nous avons simplifié la structure du JSON car l'ancien structure était
+trop complexe à réalisé avec \emph{GSON}.
+
+\newpage
+\section{Implémentation de ControleurXMLCreation}\label{header-n66}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{package}\ImportTok{ controllers;}
+
+\KeywordTok{import}\ImportTok{ models.*;}
+\KeywordTok{import}\ImportTok{ org.jdom2.output.Format;}
+\KeywordTok{import}\ImportTok{ org.jdom2.output.XMLOutputter;}
+\KeywordTok{import}\ImportTok{ views.*;}
+
+\KeywordTok{import}\ImportTok{ java.io.File;}
+\KeywordTok{import}\ImportTok{ java.io.FileOutputStream;}
+\KeywordTok{import}\ImportTok{ java.io.OutputStreamWriter;}
+\KeywordTok{import}\ImportTok{ java.io.BufferedWriter;}
+\KeywordTok{import}\ImportTok{ java.io.StringWriter;}
+\KeywordTok{import}\ImportTok{ java.text.DecimalFormat;}
+\KeywordTok{import}\ImportTok{ java.util.Calendar;}
+\KeywordTok{import}\ImportTok{ java.util.EventListener;}
+\KeywordTok{import}\ImportTok{ java.util.List;}
+\KeywordTok{import}\ImportTok{ java.util.Set;}
+
+\KeywordTok{import}\ImportTok{ javax.xml.transform.OutputKeys;}
+\KeywordTok{import}\ImportTok{ javax.xml.transform.Transformer;}
+\KeywordTok{import}\ImportTok{ javax.xml.transform.TransformerFactory;}
+\KeywordTok{import}\ImportTok{ javax.xml.transform.dom.DOMSource;}
+\KeywordTok{import}\ImportTok{ javax.xml.transform.stream.StreamResult;}
+
+\KeywordTok{import}\ImportTok{ org.jdom2.*;}
+
+\CommentTok{/*import org.dom4j.*;}
+\CommentTok{import org.dom4j.io.OutputFormat;}
+\CommentTok{import org.dom4j.io.XMLWriter;}
+\CommentTok{*/}
+
+\KeywordTok{import}\ImportTok{ com.thoughtworks.xstream.XStream;}
+
+\KeywordTok{public} \KeywordTok{class} \NormalTok{ControleurXMLCreation \{}
+
+	\CommentTok{//private ControleurGeneral ctrGeneral;}
+	\KeywordTok{private} \DataTypeTok{static} \NormalTok{MainGUI mainGUI;}
+	\KeywordTok{private} \NormalTok{ORMAccess ormAccess;}
+
+	\KeywordTok{private} \NormalTok{GlobalData globalData;}
+
+	\KeywordTok{public} \FunctionTok{ControleurXMLCreation}
+	  \NormalTok{(ControleurGeneral ctrGeneral, MainGUI mainGUI, ORMAccess ormAccess)\{}
+		\CommentTok{//this.ctrGeneral=ctrGeneral;}
+		\NormalTok{ControleurXMLCreation.}\FunctionTok{mainGUI}\NormalTok{=mainGUI;}
+		\KeywordTok{this}\NormalTok{.}\FunctionTok{ormAccess}\NormalTok{=ormAccess;}
+	\NormalTok{\}}
+
+	\KeywordTok{public} \DataTypeTok{void} \FunctionTok{createXML}\NormalTok{()\{}
+	  \KeywordTok{new} \BuiltInTok{Thread}\NormalTok{()\{}
+		  \KeywordTok{public} \DataTypeTok{void} \FunctionTok{run}\NormalTok{()\{}
+			\NormalTok{mainGUI.}\FunctionTok{setAcknoledgeMessage}\NormalTok{(}\StringTok{"Creation XML... WAIT"}\NormalTok{);}
+			\DataTypeTok{long} \NormalTok{currentTime = }\BuiltInTok{System}\NormalTok{.}\FunctionTok{currentTimeMillis}\NormalTok{();}
+			\KeywordTok{try} \NormalTok{\{}
+			  \NormalTok{globalData = ormAccess.}\FunctionTok{GET_GLOBAL_DATA}\NormalTok{();}
+			
+			  	  \CommentTok{// Doctype}
+			  \NormalTok{DocType doctype = }\KeywordTok{new} \FunctionTok{DocType}\NormalTok{(}\StringTok{"cinema"}\NormalTok{,}\StringTok{"cinema.dtd"}\NormalTok{);}
+			
+			  \BuiltInTok{Element} \NormalTok{root = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"projections"}\NormalTok{);}
+			
+			  \CommentTok{// Parcours des projections}
+			  \KeywordTok{for}\NormalTok{(Projection projection: globalData.}\FunctionTok{getProjections}\NormalTok{())\{}
+				\NormalTok{root.}\FunctionTok{addContent}\NormalTok{(}\FunctionTok{createProjection}\NormalTok{(projection,root));}
+			  \NormalTok{\}}
+			
+			  \BuiltInTok{Document} \NormalTok{document = }\KeywordTok{new} \BuiltInTok{Document}\NormalTok{(root, doctype);}
+			
+			  \CommentTok{// Sauvegarde dans le fichier XML}
+			  \NormalTok{XMLOutputter outp = }\KeywordTok{new} \FunctionTok{XMLOutputter}\NormalTok{(}\BuiltInTok{Format}\NormalTok{.}\FunctionTok{getPrettyFormat}\NormalTok{());}
+			  \NormalTok{outp.}\FunctionTok{output}\NormalTok{(document, }\KeywordTok{new} \BuiltInTok{FileOutputStream}\NormalTok{(}\StringTok{"cinema.xml"}\NormalTok{));}
+			  \DataTypeTok{long} \NormalTok{endTime = }\BuiltInTok{System}\NormalTok{.}\FunctionTok{currentTimeMillis}\NormalTok{();}
+			  \NormalTok{mainGUI.}\FunctionTok{setAcknoledgeMessage}\NormalTok{(}\StringTok{"Le fichier XML a été créé en "}
+			    \NormalTok{+}\FunctionTok{timeToSeconds}\NormalTok{(currentTime,endTime));}
+			\NormalTok{\}}
+			\KeywordTok{catch} \NormalTok{(}\BuiltInTok{Exception} \NormalTok{e)\{}
+			  \NormalTok{mainGUI.}\FunctionTok{setErrorMessage}\NormalTok{(}\StringTok{"Construction XML impossible"}
+			    \NormalTok{, e.}\FunctionTok{toString}\NormalTok{());}
+			\NormalTok{\}}
+		  \NormalTok{\}}
+		\NormalTok{\}.}\FunctionTok{start}\NormalTok{();}
+	\NormalTok{\}}
+
+	\KeywordTok{private} \BuiltInTok{Element} \FunctionTok{createProjection}\NormalTok{(Projection projection, }\BuiltInTok{Element} \NormalTok{root)\{}
+		\BuiltInTok{Element} \NormalTok{project = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"projection"}\NormalTok{);}
+
+		\CommentTok{/** ID Projection**/}
+		\BuiltInTok{Element} \NormalTok{id = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"id"}\NormalTok{);}
+		\NormalTok{id.}\FunctionTok{setText}\NormalTok{(}\BuiltInTok{Long}\NormalTok{.}\FunctionTok{toString}\NormalTok{(projection.}\FunctionTok{getId}\NormalTok{()));}
+		\NormalTok{project.}\FunctionTok{addContent}\NormalTok{(id);}
+
+		\CommentTok{/** DATE **/}
+		\BuiltInTok{Element} \NormalTok{date = }\FunctionTok{createDate}\NormalTok{(projection.}\FunctionTok{getDateHeure}\NormalTok{());}
+		\NormalTok{project.}\FunctionTok{addContent}\NormalTok{(date);}
+
+		\CommentTok{/** SALLE **/}
+		\BuiltInTok{Element} \NormalTok{salle = }\FunctionTok{createSalle}\NormalTok{(projection.}\FunctionTok{getSalle}\NormalTok{());}
+		\NormalTok{project.}\FunctionTok{addContent}\NormalTok{(salle);}
+
+		\CommentTok{/** FILM **/}
+		\BuiltInTok{Element} \NormalTok{film = }\FunctionTok{createFilm}\NormalTok{(projection.}\FunctionTok{getFilm}\NormalTok{());}
+		\NormalTok{project.}\FunctionTok{addContent}\NormalTok{(film);}
+
+		\KeywordTok{return} \NormalTok{project;}
+
+	\NormalTok{\}}
+
+	\KeywordTok{public} \BuiltInTok{Element} \FunctionTok{createDate}\NormalTok{(}\BuiltInTok{Calendar} \NormalTok{dateValue)\{}
+		\BuiltInTok{Element} \NormalTok{date = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"date"}\NormalTok{);}
+
+		\CommentTok{/** JOUR **/}
+		\BuiltInTok{Element} \NormalTok{jour = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"jour"}\NormalTok{);}
+
+		\CommentTok{/** MOIS **/}
+		\BuiltInTok{Element} \NormalTok{mois = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"mois"}\NormalTok{);}
+		\CommentTok{/** ANNEE **/}
+		\BuiltInTok{Element} \NormalTok{annee = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"annee"}\NormalTok{);}
+
+		\DataTypeTok{int} \NormalTok{intJour = dateValue.}\FunctionTok{get}\NormalTok{(}\BuiltInTok{Calendar}\NormalTok{.}\FunctionTok{DAY_OF_MONTH}\NormalTok{);}
+		\DataTypeTok{int} \NormalTok{intMois = dateValue.}\FunctionTok{get}\NormalTok{(}\BuiltInTok{Calendar}\NormalTok{.}\FunctionTok{MONTH}\NormalTok{);}
+		\DataTypeTok{int} \NormalTok{intAnnee = dateValue.}\FunctionTok{get}\NormalTok{(}\BuiltInTok{Calendar}\NormalTok{.}\FunctionTok{YEAR}\NormalTok{);}
+
+		\NormalTok{jour.}\FunctionTok{setText}\NormalTok{(}\BuiltInTok{Integer}\NormalTok{.}\FunctionTok{toString}\NormalTok{(intJour));}
+		\NormalTok{mois.}\FunctionTok{setText}\NormalTok{(}\BuiltInTok{Integer}\NormalTok{.}\FunctionTok{toString}\NormalTok{(intMois));}
+		\NormalTok{annee.}\FunctionTok{setText}\NormalTok{(}\BuiltInTok{Integer}\NormalTok{.}\FunctionTok{toString}\NormalTok{(intAnnee));}
+
+		\NormalTok{date.}\FunctionTok{addContent}\NormalTok{(jour);}
+		\NormalTok{date.}\FunctionTok{addContent}\NormalTok{(mois);}
+		\NormalTok{date.}\FunctionTok{addContent}\NormalTok{(annee);}
+		\KeywordTok{return} \NormalTok{date;}
+	\NormalTok{\}}
+
+	\KeywordTok{private} \BuiltInTok{Element} \FunctionTok{createSalle}\NormalTok{(Salle salleValue)\{}
+		\BuiltInTok{Element} \NormalTok{salle = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"salle"}\NormalTok{);}
+
+		\CommentTok{/** ID **/}
+		\BuiltInTok{Element} \NormalTok{id = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"id"}\NormalTok{);}
+
+		\CommentTok{/** NO SALLE **/}
+		\BuiltInTok{Element} \NormalTok{noSalle = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"noSalle"}\NormalTok{);}
+		\CommentTok{/** TAILLE DE LA SALLE **/}
+		\BuiltInTok{Element} \NormalTok{taille = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"taille"}\NormalTok{);}
+
+		\NormalTok{id.}\FunctionTok{setText}\NormalTok{(}\BuiltInTok{Long}\NormalTok{.}\FunctionTok{toString}\NormalTok{(salleValue.}\FunctionTok{getId}\NormalTok{()));}
+		\NormalTok{noSalle.}\FunctionTok{setText}\NormalTok{(salleValue.}\FunctionTok{getNo}\NormalTok{());}
+		\NormalTok{taille.}\FunctionTok{setText}\NormalTok{(}\BuiltInTok{Integer}\NormalTok{.}\FunctionTok{toString}\NormalTok{(salleValue.}\FunctionTok{getTaille}\NormalTok{()));}
+
+		\NormalTok{salle.}\FunctionTok{addContent}\NormalTok{(id);}
+		\NormalTok{salle.}\FunctionTok{addContent}\NormalTok{(noSalle);}
+		\NormalTok{salle.}\FunctionTok{addContent}\NormalTok{(taille);}
+
+		\KeywordTok{return} \NormalTok{salle;}
+	\NormalTok{\}}
+
+	\KeywordTok{private} \BuiltInTok{Element} \FunctionTok{createFilm}\NormalTok{(Film filmValue)\{}
+		\BuiltInTok{Element} \NormalTok{film = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"film"}\NormalTok{);}
+
+		\CommentTok{/** ID **/}
+		\BuiltInTok{Element} \NormalTok{id = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"id"}\NormalTok{);}
+		\NormalTok{id.}\FunctionTok{setText}\NormalTok{(}\BuiltInTok{Long}\NormalTok{.}\FunctionTok{toString}\NormalTok{(filmValue.}\FunctionTok{getId}\NormalTok{()));}
+		\NormalTok{film.}\FunctionTok{addContent}\NormalTok{(id);}
+
+		\CommentTok{/** TITRE **/}
+		\BuiltInTok{Element} \NormalTok{titre = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"titre"}\NormalTok{);}
+		\NormalTok{titre.}\FunctionTok{setText}\NormalTok{(filmValue.}\FunctionTok{getTitre}\NormalTok{());}
+		\NormalTok{film.}\FunctionTok{addContent}\NormalTok{(titre);}
+
+		\CommentTok{/** SYNOPSIS **/}
+		\BuiltInTok{Element} \NormalTok{synopsis = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"synopsis"}\NormalTok{);}
+		\NormalTok{synopsis.}\FunctionTok{setText}\NormalTok{(filmValue.}\FunctionTok{getSynopsis}\NormalTok{());}
+		\NormalTok{film.}\FunctionTok{addContent}\NormalTok{(synopsis);}
+
+		\CommentTok{/** DUREE **/}
+		\BuiltInTok{Element} \NormalTok{duree = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"durée"}\NormalTok{);}
+		\NormalTok{duree.}\FunctionTok{setText}\NormalTok{(}\BuiltInTok{Integer}\NormalTok{.}\FunctionTok{toString}\NormalTok{(filmValue.}\FunctionTok{getDuree}\NormalTok{()));}
+		\NormalTok{film.}\FunctionTok{addContent}\NormalTok{(duree);}
+
+		\CommentTok{/** CRITIQUES **/}
+		\KeywordTok{if}\NormalTok{(filmValue.}\FunctionTok{getCritiques}\NormalTok{() != }\KeywordTok{null}\NormalTok{) \{}
+			\BuiltInTok{Element} \NormalTok{critiques = }\FunctionTok{createCritiques}\NormalTok{(filmValue);}
+			\NormalTok{film.}\FunctionTok{addContent}\NormalTok{(critiques);}
+		\NormalTok{\}}
+
+		\CommentTok{/** MOTS CLES **/}
+		\KeywordTok{if}\NormalTok{(filmValue.}\FunctionTok{getMotcles}\NormalTok{() != }\KeywordTok{null}\NormalTok{) \{}
+			\BuiltInTok{Element} \NormalTok{motsCles = }\FunctionTok{createMotsCles}\NormalTok{(filmValue);}
+			\NormalTok{film.}\FunctionTok{addContent}\NormalTok{(motsCles);}
+		\NormalTok{\}}
+
+		\CommentTok{/** LANGUES **/}
+		\KeywordTok{if}\NormalTok{(filmValue.}\FunctionTok{getLangages}\NormalTok{() != }\KeywordTok{null}\NormalTok{) \{}
+			\BuiltInTok{Element} \NormalTok{langues = }\FunctionTok{createLangues}\NormalTok{(filmValue);}
+			\NormalTok{film.}\FunctionTok{addContent}\NormalTok{(langues);}
+		\NormalTok{\}}
+
+		\CommentTok{/** PHOTO **/}
+		\KeywordTok{if}\NormalTok{(filmValue.}\FunctionTok{getPhoto}\NormalTok{() != }\KeywordTok{null}\NormalTok{) \{}
+			\BuiltInTok{Element} \NormalTok{photo = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"photo"}\NormalTok{);}
+			\NormalTok{photo.}\FunctionTok{setAttribute}\NormalTok{(}\StringTok{"url"}\NormalTok{, filmValue.}\FunctionTok{getPhoto}\NormalTok{());}
+			\NormalTok{film.}\FunctionTok{addContent}\NormalTok{(photo);}
+		\NormalTok{\}}
+
+		\CommentTok{/** ROLES **/}
+		\KeywordTok{if}\NormalTok{(filmValue.}\FunctionTok{getRoles}\NormalTok{() != }\KeywordTok{null}\NormalTok{) \{}
+			\BuiltInTok{Element} \NormalTok{roles = }\FunctionTok{createRoles}\NormalTok{(filmValue);}
+			\NormalTok{film.}\FunctionTok{addContent}\NormalTok{(roles);}
+		\NormalTok{\}}
+
+		\KeywordTok{return} \NormalTok{film;}
+	\NormalTok{\}}
+
+	\KeywordTok{private} \BuiltInTok{Element} \FunctionTok{createCritiques}\NormalTok{(Film filmValue)\{}
+		\BuiltInTok{Element} \NormalTok{critiques = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"critiques"}\NormalTok{);}
+
+		\KeywordTok{for}\NormalTok{(Critique critiqueValue: filmValue.}\FunctionTok{getCritiques}\NormalTok{())\{}
+			\BuiltInTok{Element} \NormalTok{critique = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"critique"}\NormalTok{);}
+			\NormalTok{critique.}\FunctionTok{setText}\NormalTok{(critiqueValue.}\FunctionTok{getTexte}\NormalTok{());}
+			\NormalTok{critiques.}\FunctionTok{addContent}\NormalTok{(critique);}
+		\NormalTok{\}}
+
+		\KeywordTok{return} \NormalTok{critiques;}
+	\NormalTok{\}}
+
+	\KeywordTok{private} \BuiltInTok{Element} \FunctionTok{createMotsCles}\NormalTok{(Film filmValue)\{}
+		\BuiltInTok{Element} \NormalTok{motsCles = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"mots-cles"}\NormalTok{);}
+
+		\KeywordTok{for}\NormalTok{(Motcle motcleValue: filmValue.}\FunctionTok{getMotcles}\NormalTok{())\{}
+			\BuiltInTok{Element} \NormalTok{motcle = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"mot-cle"}\NormalTok{);}
+			\NormalTok{motcle.}\FunctionTok{setText}\NormalTok{(motcleValue.}\FunctionTok{getLabel}\NormalTok{());}
+			\NormalTok{motsCles.}\FunctionTok{addContent}\NormalTok{(motcle);}
+		\NormalTok{\}}
+
+		\KeywordTok{return} \NormalTok{motsCles;}
+	\NormalTok{\}}
+
+	\KeywordTok{private} \BuiltInTok{Element} \FunctionTok{createLangues}\NormalTok{(Film filmValue)\{}
+		\BuiltInTok{Element} \NormalTok{langues = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"langues"}\NormalTok{);}
+
+		\KeywordTok{for}\NormalTok{(Langage langueValue : filmValue.}\FunctionTok{getLangages}\NormalTok{())\{}
+			\BuiltInTok{Element} \NormalTok{langue = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"langue"}\NormalTok{);}
+			\NormalTok{langue.}\FunctionTok{setText}\NormalTok{(langueValue.}\FunctionTok{getLabel}\NormalTok{());}
+			\NormalTok{langues.}\FunctionTok{addContent}\NormalTok{(langue);}
+		\NormalTok{\}}
+
+		\KeywordTok{return} \NormalTok{langues;}
+	\NormalTok{\}}
+
+	\KeywordTok{private} \BuiltInTok{Element} \FunctionTok{createRoles}\NormalTok{(Film filmValue)\{}
+		\BuiltInTok{Element} \NormalTok{roles = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"roles"}\NormalTok{);}
+
+		\KeywordTok{for}\NormalTok{(RoleActeur roleValue: filmValue.}\FunctionTok{getRoles}\NormalTok{())\{}
+		  \BuiltInTok{Element} \NormalTok{role = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"role"}\NormalTok{);}
+
+		  \CommentTok{/** ID **/}
+		  \BuiltInTok{Element} \NormalTok{id = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"id"}\NormalTok{);}
+		  \CommentTok{/** PERSONNAGE **/}
+		  \BuiltInTok{Element} \NormalTok{personnage = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"personnage"}\NormalTok{);}
+		  \CommentTok{/** PLACE DANS LE FILM **/}
+		  \BuiltInTok{Element} \NormalTok{place = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"place"}\NormalTok{);}
+		  \CommentTok{/** ACTEUR **/}
+		  \BuiltInTok{Element} \NormalTok{acteur = }\FunctionTok{createActeur}\NormalTok{(roleValue);}
+
+		  \NormalTok{id.}\FunctionTok{setText}\NormalTok{(}\BuiltInTok{Long}\NormalTok{.}\FunctionTok{toString}\NormalTok{(roleValue.}\FunctionTok{getId}\NormalTok{()));}
+		  \NormalTok{personnage.}\FunctionTok{setText}\NormalTok{(roleValue.}\FunctionTok{getPersonnage}\NormalTok{());}
+		  \NormalTok{place.}\FunctionTok{setText}\NormalTok{(}\BuiltInTok{Long}\NormalTok{.}\FunctionTok{toString}\NormalTok{(roleValue.}\FunctionTok{getPlace}\NormalTok{()));}
+
+		  \NormalTok{role.}\FunctionTok{addContent}\NormalTok{(id);}
+		  \NormalTok{role.}\FunctionTok{addContent}\NormalTok{(personnage);}
+		  \NormalTok{role.}\FunctionTok{addContent}\NormalTok{(place);}
+		  \NormalTok{role.}\FunctionTok{addContent}\NormalTok{(acteur);}
+		  \NormalTok{role.}\FunctionTok{setAttribute}\NormalTok{(}\StringTok{"sexe"}\NormalTok{,roleValue.}\FunctionTok{getActeur}\NormalTok{().}\FunctionTok{getSexe}\NormalTok{().}\FunctionTok{toString}\NormalTok{());}
+
+		  \NormalTok{roles.}\FunctionTok{addContent}\NormalTok{(role);}
+
+		\NormalTok{\}}
+
+		\KeywordTok{return} \NormalTok{roles;}
+	\NormalTok{\}}
+
+	\KeywordTok{private} \BuiltInTok{Element} \FunctionTok{createActeur}\NormalTok{(RoleActeur roleValue)\{}
+		\NormalTok{Acteur acteurValue = roleValue.}\FunctionTok{getActeur}\NormalTok{();}
+		\BuiltInTok{Element} \NormalTok{acteur = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"acteur"}\NormalTok{);}
+
+		\CommentTok{/** NOM **/}
+		\BuiltInTok{Element} \NormalTok{nom = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"nom"}\NormalTok{);}
+		\NormalTok{nom.}\FunctionTok{setText}\NormalTok{(acteurValue.}\FunctionTok{getNom}\NormalTok{());}
+		\NormalTok{acteur.}\FunctionTok{addContent}\NormalTok{(nom);}
+
+		\CommentTok{/** NOM NAISSANCE **/}
+		\KeywordTok{if}\NormalTok{(acteurValue.}\FunctionTok{getNomNaissance}\NormalTok{() != }\KeywordTok{null}\NormalTok{) \{}
+			\BuiltInTok{Element} \NormalTok{nomNaissance = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"nomNaissance"}\NormalTok{);}
+			\NormalTok{nomNaissance.}\FunctionTok{setText}\NormalTok{(acteurValue.}\FunctionTok{getNomNaissance}\NormalTok{());}
+			\NormalTok{acteur.}\FunctionTok{addContent}\NormalTok{(nomNaissance);}
+		\NormalTok{\}}
+
+		\CommentTok{/** BIOGRAPHIE **/}
+		\BuiltInTok{Element} \NormalTok{biographie = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"biographie"}\NormalTok{);}
+		\NormalTok{biographie.}\FunctionTok{setText}\NormalTok{(acteurValue.}\FunctionTok{getBiographie}\NormalTok{());}
+		\NormalTok{acteur.}\FunctionTok{addContent}\NormalTok{(biographie);}
+
+		\CommentTok{/** DATE NAISSANCE **/}
+		\KeywordTok{if}\NormalTok{(acteurValue.}\FunctionTok{getDateNaissance}\NormalTok{() != }\KeywordTok{null}\NormalTok{) \{}
+			\BuiltInTok{Element} \NormalTok{dateNaissance = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"dateNaissance"}\NormalTok{);}
+			\NormalTok{dateNaissance.}\FunctionTok{addContent}\NormalTok{(}\FunctionTok{createDate}\NormalTok{(acteurValue.}\FunctionTok{getDateNaissance}\NormalTok{()));}
+			\NormalTok{acteur.}\FunctionTok{addContent}\NormalTok{(dateNaissance);}
+		\NormalTok{\}}
+
+		\CommentTok{/** DATE DECES **/}
+		\KeywordTok{if}\NormalTok{(acteurValue.}\FunctionTok{getDateDeces}\NormalTok{() != }\KeywordTok{null}\NormalTok{) \{}
+			\BuiltInTok{Element} \NormalTok{dateDeces = }\KeywordTok{new} \BuiltInTok{Element}\NormalTok{(}\StringTok{"dateDeces"}\NormalTok{);}
+			\NormalTok{dateDeces.}\FunctionTok{addContent}\NormalTok{(}\FunctionTok{createDate}\NormalTok{(acteurValue.}\FunctionTok{getDateDeces}\NormalTok{()));}
+			\NormalTok{acteur.}\FunctionTok{addContent}\NormalTok{(dateDeces);}
+		\NormalTok{\}}
+
+		\KeywordTok{return} \NormalTok{acteur;}
+	\NormalTok{\}}
+
+	\KeywordTok{public} \DataTypeTok{void} \FunctionTok{createXStreamXML}\NormalTok{()\{}
+	  \KeywordTok{new} \BuiltInTok{Thread}\NormalTok{()\{}
+		\KeywordTok{public} \DataTypeTok{void} \FunctionTok{run}\NormalTok{()\{}
+		  \NormalTok{mainGUI.}\FunctionTok{setAcknoledgeMessage}\NormalTok{(}\StringTok{"Creation XML... WAIT"}\NormalTok{);}
+		  \DataTypeTok{long} \NormalTok{currentTime = }\BuiltInTok{System}\NormalTok{.}\FunctionTok{currentTimeMillis}\NormalTok{();}
+		  \KeywordTok{try} \NormalTok{\{}
+			\NormalTok{globalData = ormAccess.}\FunctionTok{GET_GLOBAL_DATA}\NormalTok{();}
+			\FunctionTok{globalDataControle}\NormalTok{();}
+		  \NormalTok{\}}
+		  \KeywordTok{catch} \NormalTok{(}\BuiltInTok{Exception} \NormalTok{e)\{}
+			\NormalTok{mainGUI.}\FunctionTok{setErrorMessage}\NormalTok{(}\StringTok{"Construction XML impossible"}\NormalTok{, e.}\FunctionTok{toString}\NormalTok{());}
+		  \NormalTok{\}}
+
+		  \NormalTok{XStream xstream = }\KeywordTok{new} \FunctionTok{XStream}\NormalTok{();}
+		  \FunctionTok{writeToFile}\NormalTok{(}\StringTok{"global_data.xml"}\NormalTok{, xstream, globalData);}
+		  \BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(}\StringTok{"Done ["} \NormalTok{+ }
+		    \FunctionTok{displaySeconds}\NormalTok{(currentTime, }\BuiltInTok{System}\NormalTok{.}\FunctionTok{currentTimeMillis}\NormalTok{()) + }\StringTok{"]"}\NormalTok{);}
+		  \NormalTok{mainGUI.}\FunctionTok{setAcknoledgeMessage}\NormalTok{(}\StringTok{"XML cree en "}\NormalTok{+ }
+		    \FunctionTok{displaySeconds}\NormalTok{(currentTime, }\BuiltInTok{System}\NormalTok{.}\FunctionTok{currentTimeMillis}\NormalTok{()) );}
+		\NormalTok{\}}
+		\NormalTok{\}.}\FunctionTok{start}\NormalTok{();}
+	\NormalTok{\}}
+
+	\KeywordTok{private} \DataTypeTok{static} \DataTypeTok{void} \FunctionTok{writeToFile}\NormalTok{(}\BuiltInTok{String} \NormalTok{filename, XStream serializer, }\BuiltInTok{Object} \NormalTok{data) \{}
+		\KeywordTok{try} \NormalTok{\{}
+			\BuiltInTok{BufferedWriter} \NormalTok{out = }\KeywordTok{new} \BuiltInTok{BufferedWriter}\NormalTok{(}
+			  \KeywordTok{new} \BuiltInTok{OutputStreamWriter}\NormalTok{(}\KeywordTok{new} \BuiltInTok{FileOutputStream}\NormalTok{(filename), }\StringTok{"UTF-8"}\NormalTok{));}
+			\NormalTok{serializer.}\FunctionTok{toXML}\NormalTok{(data, out);}
+			\NormalTok{out.}\FunctionTok{close}\NormalTok{();}
+		\NormalTok{\} }\KeywordTok{catch} \NormalTok{(}\BuiltInTok{Exception} \NormalTok{e) \{}
+			\NormalTok{e.}\FunctionTok{printStackTrace}\NormalTok{();}
+		\NormalTok{\}}
+	\NormalTok{\}}
+	
+	\KeywordTok{private} \DataTypeTok{static} \DataTypeTok{final} \BuiltInTok{DecimalFormat} \NormalTok{doubleFormat = }\KeywordTok{new} \BuiltInTok{DecimalFormat}\NormalTok{(}\StringTok{"#.#"}\NormalTok{);}
+	\KeywordTok{private} \DataTypeTok{static} \DataTypeTok{final} \BuiltInTok{String} \FunctionTok{displaySeconds}\NormalTok{(}\DataTypeTok{long} \NormalTok{start, }\DataTypeTok{long} \NormalTok{end) \{}
+		\DataTypeTok{long} \NormalTok{diff = }\BuiltInTok{Math}\NormalTok{.}\FunctionTok{abs}\NormalTok{(end - start);}
+		\DataTypeTok{double} \NormalTok{seconds = ((}\DataTypeTok{double}\NormalTok{) diff) / }\FloatTok{1000.0}\NormalTok{;}
+		\KeywordTok{return} \NormalTok{doubleFormat}\FunctionTok{.format}\NormalTok{(seconds) + }\StringTok{" s"}\NormalTok{;}
+	\NormalTok{\}}
+
+	\KeywordTok{private} \DataTypeTok{void} \FunctionTok{globalDataControle}\NormalTok{()\{}
+		\KeywordTok{for} \NormalTok{(Projection p:globalData.}\FunctionTok{getProjections}\NormalTok{())\{}
+			\BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(}\StringTok{"******************************************"}\NormalTok{);}
+			\BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(p.}\FunctionTok{getFilm}\NormalTok{().}\FunctionTok{getTitre}\NormalTok{());}
+			\BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(p.}\FunctionTok{getSalle}\NormalTok{().}\FunctionTok{getNo}\NormalTok{());}
+			\BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(}\StringTok{"Acteurs *********"}\NormalTok{);}
+			\KeywordTok{for}\NormalTok{(RoleActeur role : p.}\FunctionTok{getFilm}\NormalTok{().}\FunctionTok{getRoles}\NormalTok{()) \{}
+				\BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(role.}\FunctionTok{getActeur}\NormalTok{().}\FunctionTok{getNom}\NormalTok{());}
+			\NormalTok{\}}
+			\BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(}\StringTok{"Genres *********"}\NormalTok{);}
+			\KeywordTok{for}\NormalTok{(Genre genre : p.}\FunctionTok{getFilm}\NormalTok{().}\FunctionTok{getGenres}\NormalTok{()) \{}
+				\BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(genre.}\FunctionTok{getLabel}\NormalTok{());}
+			\NormalTok{\}}
+			\BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(}\StringTok{"Mot-cles *********"}\NormalTok{);}
+			\KeywordTok{for}\NormalTok{(Motcle motcle : p.}\FunctionTok{getFilm}\NormalTok{().}\FunctionTok{getMotcles}\NormalTok{()) \{}
+				\BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(motcle.}\FunctionTok{getLabel}\NormalTok{());}
+			\NormalTok{\}}
+			\BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(}\StringTok{"Langages *********"}\NormalTok{);}
+			\KeywordTok{for}\NormalTok{(Langage langage : p.}\FunctionTok{getFilm}\NormalTok{().}\FunctionTok{getLangages}\NormalTok{()) \{}
+				\BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(langage.}\FunctionTok{getLabel}\NormalTok{());}
+			\NormalTok{\}}
+			\BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(}\StringTok{"Critiques *********"}\NormalTok{);}
+			\KeywordTok{for}\NormalTok{(Critique critique : p.}\FunctionTok{getFilm}\NormalTok{().}\FunctionTok{getCritiques}\NormalTok{()) \{}
+				\BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(critique.}\FunctionTok{getNote}\NormalTok{());}
+				\BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(critique.}\FunctionTok{getTexte}\NormalTok{());}
+			\NormalTok{\}}
+		\NormalTok{\}}
+	\NormalTok{\}}
+
+	\KeywordTok{private} \BuiltInTok{String} \FunctionTok{timeToSeconds}\NormalTok{(}\DataTypeTok{long} \NormalTok{start, }\DataTypeTok{long} \NormalTok{finish)\{}
+		\DataTypeTok{long} \NormalTok{time = }\BuiltInTok{Math}\NormalTok{.}\FunctionTok{abs}\NormalTok{(finish - start);}
+		\DataTypeTok{double} \NormalTok{timeSeconds = (}\DataTypeTok{double}\NormalTok{)time / }\DecValTok{1000}\NormalTok{;}
+		\KeywordTok{return} \BuiltInTok{String}\NormalTok{.}\FunctionTok{valueOf}\NormalTok{(timeSeconds) + }\StringTok{" s"}\NormalTok{;}
+
+	\NormalTok{\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+On a décidé d'implémenter ca en séparant les différents bloque dans des
+fonctions pour facilité la lecture.
+
+Nous avons utilisé \emph{JDOM} pour réaliser l'XML.
+
+L'utilisation de la fonction avec JDOM prend: 0.245 s. L'utilisation de
+la fonction avec XStream prend: 0.3 s.
+
+On peut donc voir que de le faire avec \emph{JDOM} est plus rapide
+qu'avec \emph{XStream} mais que ca demande beaucoup plus de travail de
+la part du developpeur et à chaque changement de la structure nécessite
+des modifications qui peuvent être conséquentes et longue.
+
+\section{Implémentation de ControleurMedia}\label{header-n87}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{package}\ImportTok{ controllers;}
+
+\KeywordTok{import}\ImportTok{ com.google.gson.Gson;}
+\KeywordTok{import}\ImportTok{ com.google.gson.GsonBuilder;}
+\KeywordTok{import}\ImportTok{ models.*;}
+\KeywordTok{import}\ImportTok{ views.*;}
+
+\KeywordTok{import}\ImportTok{ java.io.FileOutputStream;}
+\KeywordTok{import}\ImportTok{ java.io.FileWriter;}
+\KeywordTok{import}\ImportTok{ java.io.IOException;}
+\KeywordTok{import}\ImportTok{ java.io.PrintWriter;}
+\KeywordTok{import}\ImportTok{ java.text.SimpleDateFormat;}
+\KeywordTok{import}\ImportTok{ java.util.*;}
+
+\KeywordTok{public} \KeywordTok{class} \NormalTok{ControleurMedia \{}
+
+	\KeywordTok{private} \NormalTok{ControleurGeneral ctrGeneral;}
+	\KeywordTok{private} \DataTypeTok{static} \NormalTok{MainGUI mainGUI;}
+	\KeywordTok{private} \NormalTok{ORMAccess ormAccess;}
+	
+	\KeywordTok{private} \NormalTok{GlobalData globalData;}
+
+	\KeywordTok{public} \FunctionTok{ControleurMedia}\NormalTok{(ControleurGeneral ctrGeneral, MainGUI mainGUI, ORMAccess ormAccess)\{}
+		\KeywordTok{this}\NormalTok{.}\FunctionTok{ctrGeneral}\NormalTok{=ctrGeneral;}
+		\NormalTok{ControleurMedia.}\FunctionTok{mainGUI}\NormalTok{=mainGUI;}
+		\KeywordTok{this}\NormalTok{.}\FunctionTok{ormAccess}\NormalTok{=ormAccess;}
+	\NormalTok{\}}
+
+	\KeywordTok{protected} \KeywordTok{class} \NormalTok{ProjectionsJSON\{}
+		\KeywordTok{private} \BuiltInTok{List}\NormalTok{<ProjectionJSON> projections;}
+
+		\KeywordTok{protected} \KeywordTok{class} \NormalTok{ProjectionJSON\{}
+			\KeywordTok{private} \BuiltInTok{String} \NormalTok{date;}
+			\KeywordTok{private} \BuiltInTok{String} \NormalTok{titre;}
+			\KeywordTok{private} \BuiltInTok{String} \NormalTok{premierRole;}
+			\KeywordTok{private} \BuiltInTok{String} \NormalTok{deuxiemeRole;}
+
+			\KeywordTok{protected} \FunctionTok{ProjectionJSON}\NormalTok{(Projection projection)\{}
+				\CommentTok{// DATE}
+				\BuiltInTok{SimpleDateFormat} \NormalTok{dateFormat = }\KeywordTok{new} \BuiltInTok{SimpleDateFormat}\NormalTok{(}\StringTok{"dd-MM-yyyy"}\NormalTok{);}
+				\KeywordTok{this}\NormalTok{.}\FunctionTok{date} \NormalTok{=dateFormat}\FunctionTok{.format}\NormalTok{(projection.}\FunctionTok{getDateHeure}\NormalTok{().}\FunctionTok{getTime}\NormalTok{());}
+				\CommentTok{// TITRE}
+				\KeywordTok{this}\NormalTok{.}\FunctionTok{titre} \NormalTok{= projection.}\FunctionTok{getFilm}\NormalTok{().}\FunctionTok{getTitre}\NormalTok{();}
+
+				\BuiltInTok{Set}\NormalTok{<RoleActeur> roles = projection.}\FunctionTok{getFilm}\NormalTok{().}\FunctionTok{getRoles}\NormalTok{();}
+				\BuiltInTok{Iterator} \NormalTok{it = roles.}\FunctionTok{iterator}\NormalTok{();}
+
+				\CommentTok{// PREMIER ROLE}
+				\NormalTok{premierRole = ((RoleActeur) it.}\FunctionTok{next}\NormalTok{()).}\FunctionTok{getActeur}\NormalTok{().}\FunctionTok{getNom}\NormalTok{();}
+
+				\CommentTok{// DEUXIEME ROLE}
+				\NormalTok{deuxiemeRole = ((RoleActeur) it.}\FunctionTok{next}\NormalTok{()).}\FunctionTok{getActeur}\NormalTok{().}\FunctionTok{getNom}\NormalTok{();}
+				\BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(date + }\StringTok{" "} \NormalTok{+ titre + }\StringTok{" "} \NormalTok{+ premierRole + }
+				  \StringTok{" "} \NormalTok{+ deuxiemeRole);}
+			\NormalTok{\}}
+
+		\NormalTok{\}}
+
+		\KeywordTok{protected} \FunctionTok{ProjectionsJSON}\NormalTok{()\{\}}
+
+		\KeywordTok{protected} \FunctionTok{ProjectionsJSON}\NormalTok{(}\BuiltInTok{List}\NormalTok{<ProjectionJSON> projections)\{}
+			\KeywordTok{this}\NormalTok{.}\FunctionTok{projections} \NormalTok{= projections;}
+		\NormalTok{\}}
+
+		\KeywordTok{protected} \DataTypeTok{void} \FunctionTok{setProjections}\NormalTok{(}\BuiltInTok{List}\NormalTok{<ProjectionJSON> projections)\{}
+			\KeywordTok{this}\NormalTok{.}\FunctionTok{projections} \NormalTok{= projections;}
+		\NormalTok{\}}
+	\NormalTok{\}}
+
+	\KeywordTok{public} \DataTypeTok{void} \FunctionTok{sendJSONToMedia}\NormalTok{()\{}
+	  \KeywordTok{new} \BuiltInTok{Thread}\NormalTok{()\{}
+		\KeywordTok{public} \DataTypeTok{void} \FunctionTok{run}\NormalTok{()\{}
+			\NormalTok{mainGUI.}\FunctionTok{setAcknoledgeMessage}\NormalTok{(}\StringTok{"Envoi JSON ... WAIT"}\NormalTok{);}
+			\DataTypeTok{long} \NormalTok{currentTime = }\BuiltInTok{System}\NormalTok{.}\FunctionTok{currentTimeMillis}\NormalTok{();}
+			\KeywordTok{try} \NormalTok{\{}
+			  \NormalTok{globalData = ormAccess.}\FunctionTok{GET_GLOBAL_DATA}\NormalTok{();}
+			  \CommentTok{//mainGUI.setWarningMessage("Envoi JSON: Fonction non encore implementee");}
+
+			  \BuiltInTok{List}\NormalTok{<ProjectionsJSON.}\FunctionTok{ProjectionJSON}\NormalTok{> projectionJSONList = }\KeywordTok{new} \BuiltInTok{ArrayList}\NormalTok{<>();}
+
+			  \KeywordTok{for}\NormalTok{(Projection projection: globalData.}\FunctionTok{getProjections}\NormalTok{())\{}
+				\NormalTok{projectionJSONList.}\FunctionTok{add}\NormalTok{(}
+				  \KeywordTok{new} \FunctionTok{ProjectionsJSON}\NormalTok{().}\FunctionTok{new} \FunctionTok{ProjectionJSON}\NormalTok{(projection));}
+			  \NormalTok{\}}
+			  \NormalTok{ProjectionsJSON projectionsJSON = }\KeywordTok{new} \FunctionTok{ProjectionsJSON}\NormalTok{(projectionJSONList);}
+
+			  \KeywordTok{try} \NormalTok{(}\BuiltInTok{PrintWriter} \NormalTok{writer = }\KeywordTok{new} \BuiltInTok{PrintWriter}\NormalTok{(}\KeywordTok{new} \BuiltInTok{FileWriter}\NormalTok{(}\StringTok{"cinema.json"}\NormalTok{))) \{}
+				\NormalTok{Gson gson = }\KeywordTok{new} \FunctionTok{GsonBuilder}\NormalTok{().}\FunctionTok{setPrettyPrinting}\NormalTok{().}\FunctionTok{create}\NormalTok{();}
+				\NormalTok{gson.}\FunctionTok{toJson}\NormalTok{(, writer);}
+			  \NormalTok{\}}
+			  \DataTypeTok{long} \NormalTok{endTime = }\BuiltInTok{System}\NormalTok{.}\FunctionTok{currentTimeMillis}\NormalTok{();}
+			  \BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(}\StringTok{"JSON done in "} \NormalTok{+ }
+			    \FunctionTok{timeToSeconds}\NormalTok{(currentTime, endTime) + }\StringTok{""}\NormalTok{);}
+			  \NormalTok{mainGUI.}\FunctionTok{setAcknoledgeMessage}\NormalTok{(}\StringTok{"Le fichier JSON a été créé en "} 
+			    \NormalTok{+ }\FunctionTok{timeToSeconds}\NormalTok{(currentTime, endTime));}
+			\NormalTok{\}}
+			\KeywordTok{catch} \NormalTok{(}\BuiltInTok{Exception} \NormalTok{e)\{}
+				\NormalTok{mainGUI.}\FunctionTok{setErrorMessage}\NormalTok{(}\StringTok{"Construction JSON impossible"}\NormalTok{, e.}\FunctionTok{toString}\NormalTok{());}
+			\NormalTok{\}}
+		\NormalTok{\}}
+	  \NormalTok{\}.}\FunctionTok{start}\NormalTok{();}
+	\NormalTok{\}}
+
+	\KeywordTok{private} \BuiltInTok{String} \FunctionTok{timeToSeconds}\NormalTok{(}\DataTypeTok{long} \NormalTok{start, }\DataTypeTok{long} \NormalTok{finish)\{}
+		\DataTypeTok{long} \NormalTok{time = }\BuiltInTok{Math}\NormalTok{.}\FunctionTok{abs}\NormalTok{(finish - start);}
+		\DataTypeTok{double} \NormalTok{timeSeconds = (}\DataTypeTok{double}\NormalTok{)time / }\DecValTok{1000}\NormalTok{;}
+		\KeywordTok{return} \BuiltInTok{String}\NormalTok{.}\FunctionTok{valueOf}\NormalTok{(timeSeconds) + }\StringTok{" s"}\NormalTok{;}
+
+	\NormalTok{\}}
+
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Pour implémenter cette classe, nous avons utilisé \emph{GSON}. C'est
+très simple de prendre en main et nécessite pas énormement de temps à
+mettre en place. Mais si on veut faire des structures plus complexe
+devient plus compliquer à utiliser.
+
+L'utlisation de sendJSONToMedia prends: 0.083 s.
+
+\section{Extrait de l'XML généré}\label{header-n151}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{<?xml} \NormalTok{version="1.0" encoding="UTF-8"}\KeywordTok{?>}
+\DataTypeTok{<!DOCTYPE }\NormalTok{cinema SYSTEM "cinema.dtd"}\DataTypeTok{>}
+\KeywordTok{<projections>}
+  \KeywordTok{<projection>}
+    \KeywordTok{<id>}\NormalTok{2597}\KeywordTok{</id>}
+    \KeywordTok{<date>}
+      \KeywordTok{<jour>}\NormalTok{17}\KeywordTok{</jour>}
+      \KeywordTok{<mois>}\NormalTok{3}\KeywordTok{</mois>}
+      \KeywordTok{<annee>}\NormalTok{2018}\KeywordTok{</annee>}
+    \KeywordTok{</date>}
+    \KeywordTok{<salle>}
+      \KeywordTok{<id>}\NormalTok{1}\KeywordTok{</id>}
+      \KeywordTok{<noSalle>}\NormalTok{Flon 1}\KeywordTok{</noSalle>}
+      \KeywordTok{<taille>}\NormalTok{200}\KeywordTok{</taille>}
+    \KeywordTok{</salle>}
+    \KeywordTok{<film>}
+      \KeywordTok{<id>}\NormalTok{2053403}\KeywordTok{</id>}
+      \KeywordTok{<titre>}\NormalTok{Casino Royale}\KeywordTok{</titre>}
+      \KeywordTok{<synopsis>}\NormalTok{Casino Royale introduces James Bond before he holds his license to kill.}
+      {But Bond is no less dangerous, and with two professional assassinations in quick succession,}
+      {he is elevated to '00' status. Bond's first 007 mission takes him to Uganda where he is to}
+      {spy on a terrorist, Mollaka. Not everything goes to plan and Bond decides to investigate,}
+      {independently of MI6, in order to track down the rest of the terrorist cell. Following a}
+      {lead to the Bahamas, he encounters Dimitrios and his girlfriend, Solange. He learns that}
+      {Dimitrios is involved with Le Chiffre, banker to the world's terrorist organizations.}
+      {Secret Service intelligence reveals that Le Chiffre is planning to raise money in a}
+      {high-stakes poker game in Montenegro at Le Casino Royale. MI6 assigns 007 to play against}
+      {him, knowing that if Le Chiffre loses, it will destroy his organization. 'M' places Bond}
+      {under the watchful eye of the beguiling Vesper Lynd. At first skeptical of what value Vesper}
+      {can provide, Bond's interest in her deepens as they brave danger together and even torture}
+      {at the hands of Le Chiffre. In Montenegro, Bond allies himself with Mathis MI6's local}
+      {field agent, and Felix Leiter who is representing the interests of the CIA. The marathon}
+      {game proceeds with dirty tricks and violence, raising the stakes beyond blood money and}
+      {reaching a terrifying climax.}\KeywordTok{</synopsis>}
+      \KeywordTok{<durée>}\NormalTok{144}\KeywordTok{</durée>}
+      \KeywordTok{<critiques} \KeywordTok{/>}
+      \KeywordTok{<mots-cles>}
+        \KeywordTok{<mot-cle>}\NormalTok{assassin}\KeywordTok{</mot-cle>}
+        \KeywordTok{<mot-cle>}\NormalTok{corpse}\KeywordTok{</mot-cle>}
+        \KeywordTok{<mot-cle>}\NormalTok{2000s}\KeywordTok{</mot-cle>}
+        \KeywordTok{<mot-cle>}\NormalTok{blood-spatter}\KeywordTok{</mot-cle>}
+        \KeywordTok{<mot-cle>}\NormalTok{snake}\KeywordTok{</mot-cle>}
+        \KeywordTok{<mot-cle>}\NormalTok{double-cross}\KeywordTok{</mot-cle>}
+        \KeywordTok{<mot-cle>}\NormalTok{electrocution}\KeywordTok{</mot-cle>}
+      \KeywordTok{</mots-cles>}
+      \KeywordTok{<langues>}
+        \KeywordTok{<langue>}\NormalTok{French}\KeywordTok{</langue>}
+        \KeywordTok{<langue>}\NormalTok{English}\KeywordTok{</langue>}
+      \KeywordTok{</langues>}
+      \KeywordTok{<roles>}
+        \KeywordTok{<role}\OtherTok{ sexe=}\StringTok{"MASCULIN"}\KeywordTok{>}
+          \KeywordTok{<id>}\NormalTok{2218}\KeywordTok{</id>}
+          \KeywordTok{<personnage>}\NormalTok{Card Players}\KeywordTok{</personnage>}
+          \KeywordTok{<place>}\NormalTok{35}\KeywordTok{</place>}
+          \KeywordTok{<acteur>}
+            \KeywordTok{<nom>}\NormalTok{Inzerillo, Jerry}\KeywordTok{</nom>}
+            \KeywordTok{<biographie} \KeywordTok{/>}
+          \KeywordTok{</acteur>}
+        \KeywordTok{</role>}
+        \KeywordTok{<role}\OtherTok{ sexe=}\StringTok{"MASCULIN"}\KeywordTok{>}
+          \KeywordTok{<id>}\NormalTok{2224}\KeywordTok{</id>}
+          \KeywordTok{<personnage>}\NormalTok{Hot Room Technicians}\KeywordTok{</personnage>}
+          \KeywordTok{<place>}\NormalTok{41}\KeywordTok{</place>}
+          \KeywordTok{<acteur>}
+            \KeywordTok{<nom>}\NormalTok{Cox, Simon}\KeywordTok{</nom>}
+            \KeywordTok{<biographie} \KeywordTok{/>}
+          \KeywordTok{</acteur>}
+        \KeywordTok{</role>}
+        \KeywordTok{<role}\OtherTok{ sexe=}\StringTok{"MASCULIN"}\KeywordTok{>}
+          \KeywordTok{<id>}\NormalTok{2206}\KeywordTok{</id>}
+          \KeywordTok{<personnage>}\NormalTok{Infante}\KeywordTok{</personnage>}
+          \KeywordTok{<place>}\NormalTok{23}\KeywordTok{</place>}
+          \KeywordTok{<acteur>}
+            \KeywordTok{<nom>}\NormalTok{Ade}\KeywordTok{</nom>}
+            \KeywordTok{<biographie>}\NormalTok{Born in London, in the early seventies, Ade tried his hand at various trades;}
+            {from selling shoes, tickets for concerts, managing bands, to publishing an}
+            {international horse racing magazine. Ade was known by Guy Ritchie who cast him as}
+            {Tyrone the getaway driver in _Snatch. (2000)_ (qv). He then set off on the European}
+            {press jaunt }\DecValTok{&amp;} \NormalTok{traveled to the United States to preview}
+            {the movie, addressing the audience at Harry Knowles' 24hr film festival at The Alamo,}
+            {Texas.  Ade has since been involved with several other film and TV projects; notably}
+            {as Infante in the Bond movie _Casino Royale (2006)_ (qv) and Madonna's directorial}
+            {debut _Filth and Wisdom (2008)_ (qv).}\KeywordTok{</biographie>}
+          \KeywordTok{</acteur>}
+        \KeywordTok{</role>}
+      \KeywordTok{</roles>}
+    \KeywordTok{</film>}
+  \KeywordTok{</projection>}
+\ErrorTok{<}\NormalTok{/projections>}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Extrait du fichier JSON généré}\label{header-n134}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+  \DataTypeTok{"projections"}\FunctionTok{:} \OtherTok{[}
+    \FunctionTok{\{}
+      \DataTypeTok{"date"}\FunctionTok{:} \StringTok{"17-04-2018"}\FunctionTok{,}
+      \DataTypeTok{"titre"}\FunctionTok{:} \StringTok{"Casino Royale"}\FunctionTok{,}
+      \DataTypeTok{"premierRole"}\FunctionTok{:} \StringTok{"Nonyela, Valentine"}\FunctionTok{,}
+      \DataTypeTok{"deuxiemeRole"}\FunctionTok{:} \StringTok{"Cole, Christina"}
+    \FunctionTok{\}}
+  \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\newpage
+\section{Conclusion}\label{header-n162}
+
+La sérialisation de donné à beaucoup de méthode possible. Chaqu'une
+d'elles à ses avantages et inconveniant. Il faut donc à chaque fois ce
+poser la question sur quelle méthode est la plus approprié au problème.
+
+Si le temps d'exécution n'est pas un problème, XStream sera la plus
+simple des solutions. Dans le cas d'un problème d'optimisation et que le
+temps de développement n'est pas restraint, JDOM sera une bonne
+solution. GSON ne donnant pas le meme type de fichier pourra être
+utilisé de manière différente. Beaucoup de framework JS utilise du JSON
+donc GSON sera fort probablement plus utiliser lors de la combinaison
+avec ce type de technologie.
+
+\end{document}
