@@ -1,6 +1,8 @@
 package controllers;
 
 import models.*;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 import views.*;
 
 import java.io.File;
@@ -51,17 +53,23 @@ public class ControleurXMLCreation {
 					try {
 						globalData = ormAccess.GET_GLOBAL_DATA();
 
+						// Doctype
 						DocType doctype = new DocType("cinema","cinema.dtd");
 
 						Element root = new Element("projections");
 
-						Document document = new Document(root, doctype);
-
+						// Parcours des projections
 						for(Projection projection: globalData.getProjections()){
-							createProjection(projection,root);
+							root.addContent(createProjection(projection,root));
 						}
 
+						Document document = new Document(root, doctype);
 
+						// Sauvegarde dans le fichier XML
+						XMLOutputter outp = new XMLOutputter(Format.getPrettyFormat());
+						outp.output(document, new FileOutputStream("cinema.xml"));
+						long endTime = System.currentTimeMillis();
+						mainGUI.setAcknoledgeMessage("Le fichier XML a été créé en " +timeToSeconds(currentTime,endTime));
 					}
 					catch (Exception e){
 						mainGUI.setErrorMessage("Construction XML impossible", e.toString());
@@ -70,7 +78,7 @@ public class ControleurXMLCreation {
 		}.start();
 	}
 
-	private void createProjection(Projection projection, Element root){
+	private Element createProjection(Projection projection, Element root){
 		Element project = new Element("projection");
 
 		/** ID Projection**/
@@ -88,14 +96,21 @@ public class ControleurXMLCreation {
 
 		/** FILM **/
 		Element film = createFilm(projection.getFilm());
+		project.addContent(film);
+
+		return project;
 
 	}
 
 	public Element createDate(Calendar dateValue){
 		Element date = new Element("date");
 
+		/** JOUR **/
 		Element jour = new Element("jour");
+
+		/** MOIS **/
 		Element mois = new Element("mois");
+		/** ANNEE **/
 		Element annee = new Element("annee");
 
 		int intJour = dateValue.get(Calendar.DAY_OF_MONTH);
@@ -115,8 +130,12 @@ public class ControleurXMLCreation {
 	private Element createSalle(Salle salleValue){
 		Element salle = new Element("salle");
 
+		/** ID **/
 		Element id = new Element("id");
+
+		/** NO SALLE **/
 		Element noSalle = new Element("noSalle");
+		/** TAILLE DE LA SALLE **/
 		Element taille = new Element("taille");
 
 		id.setText(Long.toString(salleValue.getId()));
@@ -133,30 +152,56 @@ public class ControleurXMLCreation {
 	private Element createFilm(Film filmValue){
 		Element film = new Element("film");
 
+		/** ID **/
 		Element id = new Element("id");
-		Element titre = new Element("titre");
-		Element synopsis = new Element("synopsis");
-		Element duree = new Element("durée");
-		Element photo = new Element("photo");
-		Element critiques = createCritiques(filmValue);
-		Element motsCles = createMotsCles(filmValue);
-		Element langues = createLangues(filmValue);
-		Element roles = createRoles(filmValue);
-
 		id.setText(Long.toString(filmValue.getId()));
-		titre.setText(filmValue.getTitre());
-		synopsis.setText(filmValue.getSynopsis());
-		duree.setText(Integer.toString(filmValue.getDuree()));
-		photo.setAttribute("url",filmValue.getPhoto());
-
 		film.addContent(id);
+
+		/** TITRE **/
+		Element titre = new Element("titre");
+		titre.setText(filmValue.getTitre());
 		film.addContent(titre);
+
+		/** SYNOPSIS **/
+		Element synopsis = new Element("synopsis");
+		synopsis.setText(filmValue.getSynopsis());
 		film.addContent(synopsis);
+
+		/** DUREE **/
+		Element duree = new Element("durée");
+		duree.setText(Integer.toString(filmValue.getDuree()));
 		film.addContent(duree);
-		film.addContent(critiques);
-		film.addContent(motsCles);
-		film.addContent(langues);
-		film.addContent(photo);
+
+		/** CRITIQUES **/
+		if(filmValue.getCritiques() != null) {
+			Element critiques = createCritiques(filmValue);
+			film.addContent(critiques);
+		}
+
+		/** MOTS CLES **/
+		if(filmValue.getMotcles() != null) {
+			Element motsCles = createMotsCles(filmValue);
+			film.addContent(motsCles);
+		}
+
+		/** LANGUES **/
+		if(filmValue.getLangages() != null) {
+			Element langues = createLangues(filmValue);
+			film.addContent(langues);
+		}
+
+		/** PHOTO **/
+		if(filmValue.getPhoto() != null) {
+			Element photo = new Element("photo");
+			photo.setAttribute("url", filmValue.getPhoto());
+			film.addContent(photo);
+		}
+
+		/** ROLES **/
+		if(filmValue.getRoles() != null) {
+			Element roles = createRoles(filmValue);
+			film.addContent(roles);
+		}
 
 		return film;
 	}
@@ -203,9 +248,13 @@ public class ControleurXMLCreation {
 		for(RoleActeur roleValue: filmValue.getRoles()){
 			Element role = new Element("role");
 
+			/** ID **/
 			Element id = new Element("id");
+			/** PERSONNAGE **/
 			Element personnage = new Element("personnage");
+			/** PLACE DANS LE FILM **/
 			Element place = new Element("place");
+			/** ACTEUR **/
 			Element acteur = createActeur(roleValue);
 
 			id.setText(Long.toString(roleValue.getId()));
@@ -229,20 +278,36 @@ public class ControleurXMLCreation {
 		Acteur acteurValue = roleValue.getActeur();
 		Element acteur = new Element("acteur");
 
+		/** NOM **/
 		Element nom = new Element("nom");
-		Element nomNaissance = new Element("nomNaissance");
-		Element biographie = new Element("biographie");
-
-		Element dateNaissance = new Element("dateNaissance");
-		dateNaissance.addContent(createDate(acteurValue.getDateNaissance()));
-		Element dateDeces = new Element("dateDeces");
-		dateDeces.addContent(createDate(acteurValue.getDateDeces()));
-
+		nom.setText(acteurValue.getNom());
 		acteur.addContent(nom);
-		acteur.addContent(nomNaissance);
+
+		/** NOM NAISSANCE **/
+		if(acteurValue.getNomNaissance() != null) {
+			Element nomNaissance = new Element("nomNaissance");
+			nomNaissance.setText(acteurValue.getNomNaissance());
+			acteur.addContent(nomNaissance);
+		}
+
+		/** BIOGRAPHIE **/
+		Element biographie = new Element("biographie");
+		biographie.setText(acteurValue.getBiographie());
 		acteur.addContent(biographie);
-		acteur.addContent(dateNaissance);
-		acteur.addContent(dateDeces);
+
+		/** DATE NAISSANCE **/
+		if(acteurValue.getDateNaissance() != null) {
+			Element dateNaissance = new Element("dateNaissance");
+			dateNaissance.addContent(createDate(acteurValue.getDateNaissance()));
+			acteur.addContent(dateNaissance);
+		}
+
+		/** DATE DECES **/
+		if(acteurValue.getDateDeces() != null) {
+			Element dateDeces = new Element("dateDeces");
+			dateDeces.addContent(createDate(acteurValue.getDateDeces()));
+			acteur.addContent(dateDeces);
+		}
 
 		return acteur;
 	}
@@ -312,6 +377,13 @@ public class ControleurXMLCreation {
 				System.out.println(critique.getTexte());
 			}
 		}
+	}
+
+	private String timeToSeconds(long start, long finish){
+		long time = Math.abs(finish - start);
+		double timeSeconds = (double)time / 1000;
+		return String.valueOf(timeSeconds) + " s";
+
 	}
 }
 

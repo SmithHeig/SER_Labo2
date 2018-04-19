@@ -1,12 +1,17 @@
 <!ELEMENT projections (projection)*>
 <!ELEMENT projection (id, date, salle, film)>
-<!ELEMENT film (id, titre, synopsis, durée, (critique*), (genre*), (mot-cle*), (langages*), photo, (participent*))>
-<!ELEMENT participent (id,personnage, acteur, (role*), place)>
-<!ELEMENT acteur (nom, nomNaissance, biographie, dateNaissance, dateDeces?)>
+<!ELEMENT film (id, titre, synopsis, durée, (critiques*), (genres*), (mots-cles*), (langues*), photo?, (roles*))>
+<!ELEMENT acteur (nom, nomNaissance?, biographie, dateNaissance?, dateDeces?)>
 <!ELEMENT photo EMPTY>
 <!ELEMENT date (jour,mois,annee)>
 <!ELEMENT salle (id, noSalle, taille)>
 
+<!ELEMENT critiques (critique*)>
+<!ELEMENT genres (genre*)>
+<!ELEMENT mots-cles (mot-cle*)>
+<!ELEMENT langues (langue*)>
+<!ELEMENT roles (role*)>
+<!ELEMENT role (id,personnage, place, acteur)>
 <!ELEMENT id (#PCDATA)>
 <!ELEMENT titre (#PCDATA)>
 <!ELEMENT synopsis (#PCDATA)>
@@ -14,9 +19,8 @@
 <!ELEMENT critique (#PCDATA)>
 <!ELEMENT genre (#PCDATA)>
 <!ELEMENT mot-cle (#PCDATA)>
-<!ELEMENT langages (#PCDATA)>
+<!ELEMENT langue (#PCDATA)>
 <!ELEMENT personnage (#PCDATA)>
-<!ELEMENT role (#PCDATA)>
 <!ELEMENT place (#PCDATA)>
 <!ELEMENT nom (#PCDATA)>
 <!ELEMENT nomNaissance (#PCDATA)>
